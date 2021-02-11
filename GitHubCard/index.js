@@ -1,8 +1,15 @@
 /*
   STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+    (replacing the placeholder with your Github name):*/
+
+axios.get('https://api.github.com/users/nickcabuno') 
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +24,26 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+const cardz = document.querySelector('.cards')
+
+function getCards(login) {
+  axios.get(`https://api.github.com/users/${login}`)
+    .then(response => {
+      const card = response.data;
+
+      card.forEach((login) => {
+        const cardDiv = cardMaker({login: login});
+        cardz.append(cardDiv);
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
+
+
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -27,8 +54,17 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+/*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
+*/
 
-const followersArray = [];
+
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -50,11 +86,66 @@ const followersArray = [];
     </div>
 */
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+
+  function cardMaker({login}){
+    
+    axios.get(`https://api.github.com/users/${login}`)
+
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card');
+
+    const cardImg = document.createElement('img');
+
+    const cardInfoDiv = document.createElement('div');
+    cardInfoDiv.classList.add('card-info');
+
+    const h3 = document.createElement('h3');
+    h3.classList.add('name');
+
+    const p1 = document.createElement('p');
+    p1.classList.add('username')
+
+    const p2 = document.createElement('p');
+
+    const p3 = document.createElement('p');
+    
+
+    const p4 = document.createElement('p')
+    
+
+    const p5 = document.createElement('p')
+    
+
+    const p6 = document.createElement('p')
+
+    cardImg.src = res.data.avatar_url;
+    h3.textContent = res.data.name;
+    p1.textContent = res.data.login;
+    p2.textContent = `Location: ${res.data.location}`;
+    p3.textContent = `Profile: ${res.data.url}`;
+    p4.textContent = `Followers: ${res.data.followers}`
+    p5.textContent = `Following: ${res.data.following}`
+    p6.textContent = `Bio: ${res.data.bio}`
+    
+
+    cardDiv.appendChild(cardImg);
+    cardDiv.appendChild(h3);
+    cardDiv.appendChild(p1);
+    cardDiv.appendChild(p2);
+    cardDiv.appendChild(p3);
+    cardDiv.appendChild(p4);
+    cardDiv.appendChild(p5);
+    cardDiv.appendChild(p6);
+
+
+
+    return cardDiv
+
+  }
+
+
+
+
+
+
+
