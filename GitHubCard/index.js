@@ -2,9 +2,16 @@ import axios from 'axios';
 
 /*
   STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+    (replacing the placeholder with your Github name):*/
+
+axios.get('https://api.github.com/users/nickcabuno') 
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
 
 axios.get('https://api.github.com/users/nickcabuno') 
      .then(res => {
@@ -100,6 +107,15 @@ function cardMaker(peep) {
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+/*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
+*/
+
 
 peeps.forEach(user => {
 
